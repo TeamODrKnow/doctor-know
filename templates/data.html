@@ -1,0 +1,348 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Dr. Know - Data Charts</title>
+
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/custom.css" rel="stylesheet">
+    <link href="../static/css/tipsy.css" rel="stylesheet">
+    <script src="../static/scripts/respond.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Doctor Know, Creativity, Project Ideas, App Engine, Artificial Intelligence, Machine Learning, University of Pittsburgh, Web App, Python">
+    <meta name="description" content="This site is a student project for the University of Pittsburgh CS 1520 course. It is intended to take data streams as input and present the information in a fun and usable way.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        .axis path {
+            fill: none;
+            stroke: #777;
+            shape-rendering: crispEdges;
+        }
+        .x.axis path {
+            stroke: #777;
+        }
+        .social {
+            clear: both;
+            padding: 10px 36px 20px 36px;
+        }
+        .axis text {
+            font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 13px;
+        }
+        .tick {
+            stroke-dasharray: 1, 1;
+        }
+        .bar {
+            fill: FireBrick;
+        }
+        #D3line {
+            background: #1f3142;
+            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="../static/scripts/jquery.tipsy.js" type="text/javascript"></script>
+    <script>
+    function DisplayChart() {
+        var keyword = $('#txtKeyword').val();
+        $.ajax({
+            type: "GET",
+            url: "/getData",
+            data: {
+                inputData: keyword
+            },
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+      CreateChart(response);
+            },
+            error: function(xhr, errorType, exception) {
+               console.log('Error occured');
+            }
+        });
+    }
+    </script>
+
+    <script>
+      $(document).ready(function () {
+                $("#txtKeyword").keyup(function (event) {
+                    if (event.keyCode == 13) {
+                        DisplayChart();
+                    }
+                });
+                InitChart();
+            });
+    </script>
+
+</head>
+
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">doctor know</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/engine"><span class="glyphicon glyphicon-cloud-download hidden-sm"></span> Engine</a></li>
+        <li><a href="/data"><span class="glyphicon glyphicon-eye-open hidden-sm"></span> Data Analysis</a></li>
+        <li><a href="/profile"><span class="glyphicon glyphicon-user hidden-sm"></span> Profile</a></li>
+        <li><a href="#linked"><span class="glyphicon glyphicon-link hidden-sm"></span> Linked Accounts</a></li>
+        <li><a href="#saved"><span class="glyphicon glyphicon-screenshot hidden-sm"></span> Saved Searches</a></li>
+      </ul>
+      <p class="navbar-text"><span class="hidden-sm">Signed in as </span><a href="#profile" class="navbar-link"> {{nickname}}     </a></p>
+      <p class="navbar-text navbar-right"><a href="{{logout}}" class="navbar-link"> Log Out</a></p>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div><h2>Data Analysis</h2></div>
+  <!-- <div class="col-xs-3 btn-group btn-block-stack" data-toggle="buttons">
+    <a href="#" class="btn btn-primary active"><img src="../static/images/brainstormApp.png" class="img-responsive center-block" width="50%">
+      <input type="radio" name="options" id="brainstorm" autocomplete="off" checked> Brainstorm
+    </a>
+    <a href="#" class="btn btn-primary"><img src="../static/images/favoritesApp.png" class="img-responsive center-block" width="50%">
+      <input type="radio" name="options" id="favorites" autocomplete="off"> Favorites
+    </a>
+    <a href="#" class="btn btn-primary"><img src="../static/images/moviesApp.png" class="img-responsive center-block" width="50%">
+      <input type="radio" name="options" id="movies" autocomplete="off"> Movies
+    </a>
+    <a href="#" class="btn btn-primary"><img src="../static/images/musicApp.png" class="img-responsive center-block" width="50%">
+      <input type="radio" name="options" id="music" autocomplete="off"> Music
+    </a>
+    <a href="#" class="btn btn-primary"><img src="../static/images/dataApp.png" class="img-responsive center-block" width="50%">
+      <input type="radio" name="options" id="data" autocomplete="off"> Data
+    </a>
+    <a href="#" class="btn btn-primary"><img src="../static/images/bookApp.png" class="img-responsive center-block" width="50%">
+      <input type="radio" name="options" id="books" autocomplete="off"> Books
+    </a>
+    <a href="#" class="btn btn-primary"><img src="../static/images/scienceApp.png" class="img-responsive center-block" width="50%">
+      <input type="radio" name="options" id="science" autocomplete="off"> Science
+    </a>
+    <a href="#" class="btn btn-primary"><img src="../static/images/travelApp.png" class="img-responsive center-block" width="50%">
+      <input type="radio" name="options" id="travel" autocomplete="off"> Travel
+    </a>
+  </div> -->
+
+<div class="container">
+  <!-- Jumbotron -->
+  <div id="D3line" class="jumbotron">
+      <svg id="visualisation" width="1000" height="500"></svg>
+  </div>
+</div>
+
+<!-- <div>
+
+</div>
+<div>
+  <textarea></textarea>
+</div>
+ -->
+
+<div align="center">
+    <input id="txtKeyword" type="text" class="span3" placeholder="Type something…">
+</div>
+<footer class="row">
+        <p><small>Copyright J. Matthew Landis 2015</small></p>
+
+        <!-- javascript -->
+        <script>
+        function InitChart() {
+            var data = [{
+                "count": "202",
+                "year": "1590"
+            }, {
+                "count": "215",
+                "year": "1592"
+            }, {
+                "count": "179",
+                "year": "1593"
+            }, {
+                "count": "199",
+                "year": "1594"
+            }, {
+                "count": "134",
+                "year": "1595"
+            }, {
+                "count": "176",
+                "year": "1596"
+            }, {
+                "count": "172",
+                "year": "1597"
+            }, {
+                "count": "161",
+                "year": "1598"
+            }, {
+                "count": "199",
+                "year": "1599"
+            }, {
+                "count": "181",
+                "year": "1600"
+            }, {
+                "count": "157",
+                "year": "1602"
+            }, {
+                "count": "179",
+                "year": "1603"
+            }, {
+                "count": "150",
+                "year": "1606"
+            }, {
+                "count": "187",
+                "year": "1607"
+            }, {
+                "count": "133",
+                "year": "1608"
+            }, {
+                "count": "190",
+                "year": "1609"
+            }, {
+                "count": "175",
+                "year": "1610"
+            }, {
+                "count": "91",
+                "year": "1611"
+            }, {
+                "count": "150",
+                "year": "1612"
+            }];
+            var color = d3.scale.category20();
+            var vis = d3.select("#visualisation"),
+                WIDTH = 1000,
+                HEIGHT = 500,
+                MARGINS = {
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 50
+                },
+                xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([d3.min(data, function(d) {
+                        return (parseInt(d.year, 10) - 5);
+                    }),
+                    d3.max(data, function(d) {
+                        return parseInt(d.year, 10);
+                    })
+                ]),
+                yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([d3.min(data, function(d) {
+                        return (parseInt(d.count, 10) - 5);
+                    }),
+                    d3.max(data, function(d) {
+                        return parseInt(d.count, 10);
+                    })
+                ]),
+                xAxis = d3.svg.axis() // generate an axis
+                .scale(xScale), // set the range of the axis
+                yAxis = d3.svg.axis() // generate an axis
+                .scale(yScale)
+                .orient("left");
+            vis.append("svg:g") // add a container for the axis
+                .attr("class", "x axis") // add some classes so we can style it
+                .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")") // move it into position
+                .call(xAxis); // finally, add the axis to the visualisation
+            vis.append("svg:g")
+                .attr("class", "y axis")
+                .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+                .call(yAxis);
+        }
+        function CreateChart(data) {
+            var color = d3.scale.category20();
+            var vis = d3.select("#visualisation"),
+                WIDTH = 1000,
+                HEIGHT = 500,
+                MARGINS = {
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 50
+                },
+                xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([d3.min(data, function(d) {
+                        return (parseInt(d.year, 10) - 5);
+                    }),
+                    d3.max(data, function(d) {
+                        return parseInt(d.year, 10);
+                    })
+                ]),
+                yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([d3.min(data, function(d) {
+                        return (parseInt(d.count, 10) - 5);
+                    }),
+                    d3.max(data, function(d) {
+                        return parseInt(d.count, 10);
+                    })
+                ]),
+                xAxis = d3.svg.axis() // generate an axis
+                .scale(xScale), // set the range of the axis
+                yAxis = d3.svg.axis() // generate an axis
+                .scale(yScale)
+                .orient("left");
+            var hasAxis = vis.select('.axis')[0][0];
+            if (!hasAxis) {
+                console.log('me in');
+                vis.append("svg:g") // add a container for the axis
+                    .attr("class", "x axis") // add some classes so we can style it
+                    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")") // move it into position
+                    .call(xAxis); // finally, add the axis to the visualisation
+                vis.append("svg:g")
+                    .attr("class", "y axis")
+                    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+                    .call(yAxis);
+            }
+            var transition = vis.transition().duration(2000);
+            transition.select(".x.axis").call(xAxis);
+            transition.select(".y.axis").call(yAxis);
+            var circles = vis.selectAll("circle").data(data);
+            circles.enter()
+                .append("svg:circle")
+                .attr("stroke", "black")
+                .attr("r", 10)
+                .attr("cx", function(d) {
+                    return xScale(d.year);
+                })
+                .attr("cy", function(d) {
+                    return yScale(d.count);
+                })
+                .style("fill", function(d, i) {
+                    return color(i);
+                });
+            circles.transition().duration(1000)
+                .attr("cx", function(d) {
+                    return xScale(d.year);
+                })
+                .attr("cy", function(d) {
+                    return yScale(d.count);
+                })
+                .attr("r", 10);
+            circles.exit()
+                .transition().duration(1000)
+                .remove();
+            $('svg circle').tipsy({
+                gravity: 'w',
+                title: function() {
+                    var d = this.__data__;
+                    return d.count + ' occurences found in ' + d.corpus;
+                }
+            });
+        }
+    </script>
+
+      <script src="../static/scripts/bootstrap.min.js"></script>
+      <!-- <script>
+        $('#myStateButton').on('click', function () {
+          $(this).button('toggle') // toggle clicked button
+        })
+      </script> -->
+
+    </footer>
+

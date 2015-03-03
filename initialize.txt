@@ -1,0 +1,46 @@
+instructions from tutorial from https://cloud.google.com/solutions/real-time/kubernetes-redis-bigquery
+
+Step-by-step for restarting dataflow
+######################################
+
+$KUBE_DIR = folder where kubenetes was extracted
+$EXAMPLE_DIR = project folder
+
+$KUBE_DIR/cluster/kubecfg.sh -c $EXAMPLE_DIR/redis-master.yaml create pods
+
+wait 30 secs
+
+$KUBE_DIR/cluster/kubecfg.sh -c $EXAMPLE_DIR/redis-master-service.yaml create services
+
+wait 30 secs
+
+$KUBE_DIR/cluster/kubecfg.sh -c $EXAMPLE_DIR/bigquery-controller.yaml \
+  create replicationControllers
+
+wait 30 secs
+
+$KUBE_DIR/cluster/kubecfg.sh -c $EXAMPLE_DIR/twitter-stream.yaml \
+  create replicationControllers
+
+DONE
+/////////////////////
+
+Shut-down checklist (in this order)
+######################################
+
+$KUBE_DIR/cluster/kubecfg.sh resize twitter-stream-controller 0
+$KUBE_DIR/cluster/kubecfg.sh resize bigquery-controller 0
+$KUBE_DIR/cluster/kubecfg.sh delete replicationControllers/twitter-stream-controller
+$KUBE_DIR/cluster/kubecfg.sh delete replicationControllers/bigquery-controller
+$KUBE_DIR/cluster/kubecfg.sh delete services/redismaster
+$KUBE_DIR/cluster/kubecfg.sh delete pods/redis-master-pod
+
+DONE
+//////////////////////
+
+To completely erase
+#########################################
+$KUBE_DIR/cluster/kube-down.sh
+
+
+

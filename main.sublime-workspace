@@ -1,0 +1,402 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Re",
+				"RequestHandler"
+			],
+			[
+				"le",
+				"length"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 368.0,
+		"selected_items":
+		[
+			[
+				"git C",
+				"Git: Commit"
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add..."
+			],
+			[
+				"Subli",
+				"SublimeLinter: Disable Linter"
+			],
+			[
+				"Install",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"git pus",
+				"Git: Push"
+			],
+			[
+				"rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"remove ",
+				"Package Control: Remove Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"Instal",
+				"Package Control: Install Package"
+			],
+			[
+				"Pack",
+				"Package Control: Discover Packages"
+			],
+			[
+				"Package Control",
+				"Package Control: Install Package"
+			],
+			[
+				"key",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"java",
+				"Javatar: Browse Commands..."
+			],
+			[
+				"javac",
+				"Javatar: Create new..."
+			]
+		],
+		"width": 561.0
+	},
+	"console":
+	{
+		"height": 135.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/DoctorKnowDev/templates/engine.html",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/app.yaml",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/index.html",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/DoctorKnowDev/doctor-know/index.yaml",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/code.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/privateKeyPwd",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/apiclient/sample_tools.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/apiclient/schema.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/apiclient/http.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/twitter-keys.txt",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/uritemplate/__init__.py",
+		"/Users/MissionControl/Code/School/SystemsSoftware/Project2/mystrings.c",
+		"/Users/MissionControl/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/FDAECA98-A719-4C0D-B86B-6E37AC914CBA/code3.s",
+		"/Users/MissionControl/landisResults.c",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/bigquery-setup/schema.json",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/templates/base.html",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/templates/index.html",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/pipeline-image/twitter-to-redis.py",
+		"/Users/MissionControl/Classes/SystemsSoftware/Notes/VariableLengthFuncs.c",
+		"/Users/MissionControl/Classes/SystemsSoftware/Notes/VariableLengthFuncs",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/pipeline-image/controller.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/pipeline-image/redis-to-bigquery.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/twitter-stream.yaml",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/bigquery-controller.yaml",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/initialize.txt",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/pipeline-image/Dockerfile",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/README.md",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/grid.html",
+		"/Applications/kubernetes/cluster/gce/util.sh",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/tweepy/binder.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/tweepy/utils.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/app.yaml.old.yaml",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/tweepy/auth.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/requests_oauthlib/oauth1_auth.py",
+		"/Users/MissionControl/Downloads/python-future-master/src/future/moves/urllib/parse.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/six/six.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/src/code.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/__init__.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/oauthlib/common.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/stream.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/cron.yaml",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/static/css/custom.css",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/static/css/bootstrap.css",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/static/scripts/appsPanel.js",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/static/css/Styles.css",
+		"/Users/MissionControl/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/MissionControl/Downloads/Ex_Files_UaR_Bootstp3/Exercise Files/Chapter 2/02_05/02_05.html",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/index.yaml",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/templates/indexOld.html",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/static/css/bootstrap-theme.css",
+		"/Users/MissionControl/Downloads/Ex_Files_UaR_Bootstp3/Exercise Files/Chapter 1/01_05/additional head code.txt",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/static/scripts/respond.js",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/static/fonts/glyphicons-halflings-regular.svg",
+		"/Users/MissionControl/Downloads/Ex_Files_UaR_Bootstp3/Exercise Files/Chapter 1/01_04/additional head code.txt",
+		"/Users/MissionControl/Downloads/Ex_Files_UaR_Bootstp3/Exercise Files/Chapter 1/01_04/index.html",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/static/stylesheets/genericons.css",
+		"/Users/MissionControl/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/Default (OSX).sublime-keymap",
+		"/Users/MissionControl/Library/Application Support/Sublime Text 3/Packages/Emmet/Default (OSX).sublime-keymap",
+		"/Users/MissionControl/Library/Application Support/Sublime Text 3/Packages/User/SublimeOnSaveBuild.sublime-settings",
+		"/Users/MissionControl/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/MissionControl/Library/Application Support/Sublime Text 3/Packages/Alignment/Default (OSX).sublime-keymap",
+		"/Users/MissionControl/Library/Application Support/Sublime Text 3/Packages/AdvancedNewFile/README.md",
+		"/Users/MissionControl/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/MissionControl/Code/School/Algorithms/Project2/practice/src/BinaryStdOut.java",
+		"/Users/MissionControl/Code/School/Algorithms/Project2/jml168-Assignment2/MyLZWTest.java",
+		"/Users/MissionControl/Code/School/Algorithms/Project2/jml168-Assignment2/results.txt",
+		"/Users/MissionControl/Code/School/Algorithms/Project2/jml168-Assignment2/info_sheet.txt",
+		"/Users/MissionControl/Code/School/Algorithms/Project2/practice/src/README.md",
+		"/Users/MissionControl/Code/School/Algorithms/Project2/practice/src/TST.java",
+		"/Users/MissionControl/Code/School/Algorithms/Project2/jml168-Assignment2/BinaryStdIn.java",
+		"/Users/MissionControl/Code/School/Algorithms/Project2/jml168-Assignment2/medium.lzw",
+		"/Users/MissionControl/Code/School/Algorithms/Project2/practice/src/MyLZWTest.java",
+		"/Users/MissionControl/Classes/WebApps/messages/templates/index.html",
+		"/Users/MissionControl/Classes/WebApps/messages/code.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/templates/indexRegistered.html",
+		"/Users/MissionControl/Classes/WebApps/messages/static/scripts.js",
+		"/Users/MissionControl/Code/School/Algorithms/Project2/practice/src/MyLZW.java",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/code2.py",
+		"/Users/MissionControl/Code/School/Algorithms/Project2/practice/src/medium.lzw",
+		"/Users/MissionControl/Downloads/responsive/builds/development/index.html",
+		"/Users/MissionControl/Downloads/responsive/components/sass/_layout.scss",
+		"/Users/MissionControl/Downloads/responsive/components/sass/_variables.scss",
+		"/Users/MissionControl/Downloads/responsive/components/sass/_base.scss",
+		"/Users/MissionControl/Downloads/responsive/components/sass/modules/_nav.scss",
+		"/private/etc/hosts",
+		"/Users/MissionControl/Downloads/responsive/components/sass/_mixins.scss",
+		"/Users/MissionControl/Downloads/responsive/components/sass/modules/_footer.scss",
+		"/Users/MissionControl/Downloads/responsive/components/sass/modules/_dining.scss",
+		"/Users/MissionControl/Downloads/responsive/components/sass/modules/_rooms.scss",
+		"/Users/MissionControl/Downloads/responsive/components/sass/modules/_hotelinfo.scss",
+		"/Users/MissionControl/Downloads/responsive/components/sass/modules/_events.scss",
+		"/Users/MissionControl/Downloads/responsive/components/sass/modules/_attractions.scss",
+		"/Users/MissionControl/Downloads/responsive/gulpfile.js",
+		"/Users/MissionControl/Downloads/responsive/package.json",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/gulpfile.js",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/package.json",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/sass/modules/_header.scss",
+		"/Users/MissionControl/Desktop/responsive/builds/development/index.html",
+		"/Users/MissionControl/Code/School/WebApps/responsive/builds/development/index.html",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/css/style.css",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/templates/responsive-rtl.html",
+		"/Users/MissionControl/Code/School/WebApps/Graphics/unsemantic-master/bower.json",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/sass/style.scss",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/sass/_mixins.scss",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/sass/_base.scss",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/sass/_layout.scss",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/sass/_variables.scss",
+		"/Users/MissionControl/Code/Personal/PythonTHW/ex3.py",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/main.py",
+		"/Users/MissionControl/Code/School/WebApps/assignment2/master-plane-837/app.yaml",
+		"/Users/MissionControl/Code/School/WebApps/assignment2/master-plane-837/main.py",
+		"/Users/MissionControl/Library/Application Support/Adobe/Dreamweaver CS6/en_US/Configuration/DocumentTypes/MMDocumentTypes.xml",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/sass/modules/_footer.scss",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/sass/modules/_welcome.scss",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/sass/modules/_main.scss",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/sass/modules/_profile.scss",
+		"/Users/MissionControl/Code/School/WebApps/DrKnow/ageless-command-843/components/sass/modules/_accountform.scss",
+		"/Users/MissionControl/Code/School/WebApps/responsive/components/sass/style.scss",
+		"/Users/MissionControl/Classes/SystemsSoftware/Notes/executablesAndLinking.c",
+		"/Users/MissionControl/Documents/motherShipInfo.txt",
+		"/Users/MissionControl/Code/School/WebApps/assignment2/app.yaml",
+		"/Users/MissionControl/Code/School/Algorithms/Project1/jml168-Assignment1/SimpleDictionary.java",
+		"/Users/MissionControl/Code/School/Algorithms/Project1/jml168-Assignment1/DictionaryInterface.java",
+		"/Users/MissionControl/Downloads/backtracking/backTrack/Solver.java",
+		"/Users/MissionControl/Downloads/backtracking/backtracking.txt",
+		"/Users/MissionControl/Code/School/Algorithms/Project1/jml168-Assignment1/DictTest.java",
+		"/Users/MissionControl/Classes/WebApps/Notes/classNote28Jan.py",
+		"/Users/MissionControl/Code/School/WebApps/LandisWebServer/HttpRequest.java"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 154.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"MINION",
+			"MINION_SCOP",
+			"from six.moves.",
+			"from six.moves.urllib.parse ",
+			"from six.moves.urllib.parse import quote",
+			"from six.mo",
+			"import",
+			"btn",
+			"btn-pr",
+			"a",
+			"a href=\"#\" class=\"btn btn-primary active\"><img src=\"../static/images/favoritesApp.png\">\n    <input type=\"radio\" name=\"options\" id=\"favorites\" autocomplete=\"off\"> Radio 2\n  ",
+			">\n",
+			"\"></",
+			"src",
+			"></",
+			"nav",
+			"glyphicon",
+			"navbar",
+			"      <span class=\"icon-bar\"></span>\n",
+			">\n",
+			"a ",
+			"link",
+			"hr",
+			"NUMCHAR",
+			"mode",
+			"fun"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 51.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "main.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"c",
+				"ageless-command-843/code.py"
+			],
+			[
+				"cod",
+				"ageless-command-843/code.py"
+			],
+			[
+				"s",
+				"static/stylesheets/Styles.css"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 233.0,
+	"status_bar_visible": false,
+	"template_settings":
+	{
+	}
+}

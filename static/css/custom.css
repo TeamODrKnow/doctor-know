@@ -1,0 +1,144 @@
+/* Custom css for Dr. Know */
+html {
+	font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	text-align: center;
+}
+
+body {
+	background-color: #000000;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #ffffff;
+}
+
+h1 {
+	color: #21aeec;
+	font-size: 2.5em;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h2 {
+	font-weight: 300;
+	color: #21aeec;
+}
+
+h3 {
+	font-weight: 200;
+	color: #757f7d;
+}
+
+h4 {
+	color: #1367D5;
+}
+
+a {
+	color: #21aeec;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #ec6c2f;
+}
+
+p {
+	font-size: medium;
+	font-weight: 200;
+	color: #edf0e8;
+}
+
+.glyphicon {
+	color: #21aeec;
+}
+
+.glyphicon-pencil {
+	padding: 5% 0 5% 0;
+	font-size: 4em;
+}
+
+.glyphicon-play-circle {
+	padding: 5% 0 5% 0;
+	font-size: 4em;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), #1f3142, rgba(0,0,0,0));
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), #1f3142, rgba(0,0,0,0));
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), #1f3142, rgba(0,0,0,0));
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), #1f3142, rgba(0,0,0,0));
+}
+
+.hleft {
+	text-align: right;
+}
+
+.hright {
+	text-align: left;
+}
+
+.navbar{
+	border-radius: 0px;
+	max-height: 44px;
+}
+.navbar-default {
+	border: none;
+  	background-color: #edf0e8;
+}
+
+.navbar-default .navbar-brand {
+	border:none;
+    font-weight: normal;
+ 	background-color: #1f3142;
+  	color: #21aeec;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #ec6c2f;
+  background-color: #1f3142;
+}
+
+.navbar-default .navbar-text {
+  color: #21aeec;
+}
+
+.navbar-default .navbar-right {
+  color: #21aeec;
+  padding-right: 15px;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #21aeec;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #ec6c2f;
+  background-color: transparent;
+}
+
+.btn {
+	height: 110px;
+	width: 110px;
+	font-size: 14px;
+	font-weight: 150;
+	color: #edf0e8;
+	padding: 22px 2px;
+}
+
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  color: #ec6c2f;
+  text-decoration: none;
+}
+
+footer {
+	padding: .5em 0;
+	margin: .5em 0;
+	text-align: center;
+}

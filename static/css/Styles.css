@@ -1,0 +1,614 @@
+@charset 'UTF-8';
+h1
+{
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.8em;
+    font-weight: 400;
+    font-style: normal;
+
+    text-align: center;
+
+    text-shadow: 2px 3px #fff;
+}
+body
+{
+    position: absolute;
+
+    width: 100%;
+    height: 1340px;
+
+    background-color: #0e0e0e;
+}
+
+header
+{
+    font-family: Roboto, 'Roboto Black', 'Roboto Bold', 'Roboto Light';
+
+    text-align: center;
+
+    background-image: url(../../assets/style2-assets/logoGlow.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: cover;
+}
+
+.navHome:before
+{
+    font: normal 20px/1 'Genericons';
+
+    display: inline-block;
+
+    content: '\f409';
+    vertical-align: sub;
+
+    color: $light;
+    color: #c7eafa;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.navProfile:before
+{
+    font: normal 20px/1 'Genericons';
+
+    display: inline-block;
+
+    content: '\f445';
+    vertical-align: sub;
+
+    color: $light;
+    color: #c7eafa;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.navAccount:before
+{
+    font: normal 20px/1 'Genericons';
+
+    display: inline-block;
+
+    content: '\f304';
+    vertical-align: sub;
+
+    color: $light;
+    color: #c7eafa;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.navInfo:before
+{
+    font: normal 20px/1 'Genericons';
+
+    display: inline-block;
+
+    content: '\f455';
+    vertical-align: sub;
+
+    color: $light;
+    color: #c7eafa;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.titleBanner
+{
+    max-width: 90%;
+    margin-top: 5px;
+    margin-right: 20%;
+    margin-left: 20%;
+
+    text-align: center;
+}
+
+.titleBanner .logoWords
+{
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: xx-large;
+
+    padding-top: 40px;
+
+    text-align: center;
+
+    color: #21aeec;
+}
+
+.titleBanner .logoWords.leftWord
+{
+    float: left;
+
+    width: 33.3%;
+}
+
+.titleBanner .logoWords.rightWord
+{
+    float: left;
+
+    width: 33.3%;
+}
+
+.titleBanner .logoContainer
+{
+    float: left;
+
+    width: 33.3%;
+}
+
+body nav
+{
+    display: block;
+    clear: both;
+
+    background-image: -webkit-linear-gradient(270deg,rgba(31,49,66,1.00) 0%,rgba(0,0,0,1.00) 100%);
+    background-image:    -moz-linear-gradient(270deg,rgba(31,49,66,1.00) 0%,rgba(0,0,0,1.00) 100%);
+    background-image:      -o-linear-gradient(270deg,rgba(31,49,66,1.00) 0%,rgba(0,0,0,1.00) 100%);
+    background-image:         linear-gradient(180deg,rgba(31,49,66,1.00) 0%,rgba(0,0,0,1.00) 100%);
+}
+
+.navbar
+{
+    z-index: 100;
+
+    width: 100%;
+    height: 45px;
+}
+
+.navbar .brand
+{
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: normal;
+
+    float: left;
+
+    width: 25%;
+    height: 45px;
+    padding-top: 2px;
+    padding-right: 5px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+
+    text-align: center;
+    text-transform: uppercase;
+
+    background-color: #1f3142;
+    background-size: cover;
+    /* [disabled]font-size: 1.5em; */
+}
+
+.navbar .brand a
+{
+    font-size: 1.5em;
+    line-height: 45px;
+
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+
+    text-align: center;
+    text-decoration: none;
+
+    color: #3485ee;
+}
+
+.navbar .navButtons
+{
+    display: inline-block;
+
+    width: 70%;
+}
+
+.navbar .navButtons ul
+{
+    width: 100%;
+    height: 100%;
+    margin-top: 6px;
+}
+
+.navbar .navButtons ul li
+{
+    display: inline-block;
+
+    width: 20%;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+
+    text-align: center;
+}
+
+.navbar .navButtons ul li a
+{
+    font-family: Roboto, 'Roboto Black', 'Roboto Bold', 'Roboto Light';
+    font-size: 1em;
+    font-weight: 200;
+
+    display: block;
+
+    padding-top: 10px;
+    padding-right: 10;
+    padding-bottom: 10;
+    padding-left: 35;
+
+    text-align: center;
+    text-decoration: none;
+
+    color: #21aeec;
+    background-repeat: no-repeat;
+    background-position: 2px 0;
+    background-size: 35px auto;
+}
+
+.navbar .navButtons ul li a:hover
+{
+    color: #95dbf9;
+}
+
+.brand a span
+{
+    font-size: medium;
+
+    padding-top: 0;
+}
+
+body main
+{
+    display: block;
+
+    border-top-style: solid;
+}
+
+.welcome
+{
+    display: block;
+    clear: both;
+
+    padding-bottom: 150px;
+
+    text-align: center;
+
+    opacity: 1;
+    color: #3485ee;
+    border-top: medium double #21aeec;
+    border-right-color: #21aeec;
+    border-bottom-color: #21aeec;
+    border-left-color: #21aeec;
+}
+
+.welcome .messageBox
+{
+    display: block;
+    float: left;
+
+    width: 50%;
+    height: 18%;
+    margin-top: 15px;
+    /* [disabled]clear: both; */
+    padding-top: 0;
+}
+
+.welcome .messageBox p
+{
+    color: #f3f0f0;
+}
+
+.welcome div
+{
+    float: left;
+
+    width: 25%;
+}
+
+.welcome .messageBox h2
+{
+    font-family: Roboto, 'Roboto Black', 'Roboto Bold', 'Roboto Light';
+
+    color: #f3f0f0;
+    text-shadow: 3px 3px 16px #1f3142;
+}
+
+.titleBanner .logoContainer .logo
+{
+    max-width: 100px;
+    max-height: 100px;
+    margin-bottom: 0;
+    padding-bottom: 20px;
+}
+
+.welcome .start:before
+{
+    font-family: 'Genericons';
+    font-size: 62px;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+
+    display: inline-block;
+    clear: both;
+
+    margin-top: 12px;
+    padding-top: 0;
+
+    content: '\f502';
+    vertical-align: sub;
+    text-decoration: none;
+
+    color: $light;
+    color: #21aeec;
+    text-shadow: 0 -3px 8px #1f3142;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.welcome .start
+{
+    display: inline-block;
+    float: right;
+
+    margin-right: 10%;
+    padding-top: 20px;
+
+    text-decoration: none;
+}
+
+.welcome .start span
+{
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: large;
+    font-weight: 300;
+
+    display: block;
+
+    margin-top: -21px;
+
+    text-decoration: none;
+    text-transform: uppercase;
+
+    color: #5aacff;
+    text-shadow: 0 0 25px #0f62cf;
+}
+
+.engineScene
+{
+    display: block;
+    clear: both;
+}
+
+.engineScene .hgroup
+{
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    display: block;
+
+    margin-top: 80px;
+    margin-right: 39px;
+    margin-bottom: 40px;
+
+    text-align: center;
+
+    color: #21aeec;
+}
+
+.engineScene .leftPanel
+{
+    float: left;
+
+    width: 15%;
+    margin-left: 5%;
+}
+
+.engineScene .wordCloud
+{
+    display: inline-block;
+    float: left;
+
+    width: 50%;
+    margin-left: 3%;
+
+    border-width: thin;
+    border-style: solid;
+    border-radius: 5px;
+    background-image: url(../style2-assets/wordcloud_try_again.png);
+    background-repeat: no-repeat;
+    background-position: 45% 45%;
+    background-size: contain;
+}
+
+.engineScene .rightPanel
+{
+    float: left;
+
+    width: 15%;
+    margin-right: 5%;
+    margin-left: 3%;
+}
+
+.hgroup div h2
+{
+    font-weight: 200;
+}
+
+.welcome section
+{
+    display: block;
+    clear: both;
+
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 10%;
+    padding-top: 35px;
+    padding-right: 0;
+}
+
+section .register span
+{
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: large;
+    font-weight: 300;
+
+    display: block;
+
+    margin-top: -5px;
+
+    text-transform: uppercase;
+
+    color: #5aacff;
+    text-shadow: 0 0 25px #0f62cf;
+}
+
+.welcome .register:before
+{
+    font-family: 'Genericons';
+    font-size: 62px;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+
+    display: inline-block;
+    clear: both;
+
+    margin-top: 12px;
+    padding-top: 0;
+
+    content: '\f411';
+    text-decoration: none;
+
+    color: #21aeec;
+    text-shadow: 0 -3px 8px #1f3142;
+    /* [disabled]vertical-align: sub; */
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.welcome section .register
+{
+    display: inline;
+    float: left;
+
+    text-decoration: none;
+}
+
+.welcome div p
+{
+    margin-top: -1px;
+    padding-bottom: 0;
+}
+
+@media screen and (max-width:400px)
+{
+    .navbar .brand a
+    {
+        font-size: 1em;
+    }
+    .navButtons ul li span
+    {
+        display: none;
+    }
+    .navButtons ul li
+    {
+        /* [disabled]width: 3%; */
+        float: right;
+    }
+    .navbar .navButtons
+    {
+        width: 56%;
+    }
+}
+
+@media screen and (max-width:600px)
+{
+    .logo
+    {
+        width: 75%;
+        height: auto;
+        margin-top: -12px;
+        margin-right: -12px;
+        margin-bottom: -12px;
+        margin-left: -12px;
+        padding-top: 15px;
+        padding-bottom: 19px;
+
+        border-spacing: 0 0;
+    }
+    .navButtons ul li
+    {
+    }
+    .brand
+    {
+        font-size: .7em;
+    }
+}
+
+@media screen and (max-width:750px)
+{
+    h1
+    {
+        font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 1.5em;
+        font-weight: 400;
+        font-style: normal;
+
+        text-align: center;
+
+        text-shadow: 2px 3px #fff;
+    }
+    h2
+    {
+        font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 1.2em;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .logo
+    {
+        width: 25%;
+        height: auto;
+        margin-top: -12px;
+        margin-right: -12px;
+        margin-bottom: -12px;
+        margin-left: -12px;
+        padding-top: 15px;
+        padding-bottom: 19px;
+
+        border-spacing: 0 0;
+    }
+    .brand
+    {
+        font-size: .9em;
+    }
+    .hgroup div h2
+    {
+        text-align: center;
+
+        color: #21aeec;
+    }
+}
+
+@media screen and (max-width:1290px)
+{
+    .logo
+    {
+        width: 75%;
+        height: auto;
+        margin-top: -12px;
+        margin-right: -12px;
+        margin-bottom: -12px;
+        margin-left: -12px;
+        padding-top: 15px;
+        padding-bottom: 19px;
+
+        border-spacing: 0 0;
+    }
+}
