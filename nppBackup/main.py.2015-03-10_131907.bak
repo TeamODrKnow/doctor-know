@@ -93,25 +93,14 @@ class CreateProfile(webapp2.RequestHandler):
 
 #######################################################################
 ## process user profile
-## check for user signed in, if so, save the entered information, otherwise, redirect them to the login page
 class ProcessUser(webapp2.RequestHandler) :
 
     def post(self) :
-		user = users.get_current_user()
-		if user:
-			NewUser = UserModel()
-			NewUser.uid = user.user_id()
-			NewUser.fname = self.request.get('fname')
-			NewUser.lname = self.request.get('lname')
-			NewUser.location = self.request.get('location')
-			NewUser.additional = self.request.get('additional')
-			NewUser.words = []
-			for word in words:
-				NewUser.word+=[word]
-			NewUser.put()
-			self.redirect('/')
-		else
-			self.redirect(users.create_login_url('/'))
+        NewUser = UserModel()
+        NewUser.fname = self.request.get('fname')
+        NewUser.lname = self.request.get('lname')
+        NewUser.put()
+        self.redirect('/')
 
 #######################################################################
 ## Model Data
@@ -178,12 +167,8 @@ class DisplayData(webapp2.RequestHandler) :
 #######################################################################
 ## Establish/Update User Profile
 class UserModel(ndb.Model) :
-	uid = ndb.StringProperty(indexed=True)
-    fname = ndb.StringProperty(indexed = false)
-    lname = ndb.StringProperty(indexed = false)
-	location = ndb.StringProperty(indexed = false)
-	additional = ndb.StringProperty(indexed = false)
-	words = ndb.StringProperty(indexed=False,repeated=True)
+    fname = ndb.StringProperty()
+    lname = ndb.StringProperty()
 
 app = webapp2.WSGIApplication( [
     ('/', MainPage),
