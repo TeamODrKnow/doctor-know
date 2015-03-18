@@ -9,6 +9,9 @@ import webapp2
 import time
 import httplib2
 import json
+import tweepy
+import haigha
+from haigha.connections.rabbit_connection import RabbitConnection
 from apiclient import discovery
 from oauth2client import appengine
 from oauth2client import client
@@ -41,6 +44,16 @@ href="https://code.google.com/apis/console">APIs Console</a>.
 http = httplib2.Http(memcache)
 service = discovery.build("plus", "v1", http=http)
 bigquery_service = discovery.build("bigquery","v2", http=http)
+
+consumer_key = "9xNrmD6hE0xnRSYdZt5t0XT0B"
+consumer_secret = "kperqjklvPhBCVvHI96aZIfJu5w1DHI2BZoNMdBEvBPfmuZIYG"
+access_token = "46501499-cijYvv9ixtQKHLSiLt9QaRtcmWeEKvvGZK5s6ukw7"
+access_token_secret = "D127XCAN02BPb0ZtcreCG6dpBJyiiLCeD6ckS2MgdHqwG"
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
+
 
 decorator = appengine.oauth2decorator_from_clientsecrets(
     CLIENT_SECRETS,
@@ -145,6 +158,31 @@ class DataHandler(webapp2.RequestHandler) :
 
 
 #######################################################################
+## Model Words
+class WordsHandler(webapp2.RequestHandler) :
+
+    @bq_decorator.oauth_aware
+    def get(self) :
+        if bq_decorator.has_credentials():
+            http = bq_decorator.http()
+            inputData = self.request.get("inputData")
+            queryData = {'query':'SELECT text FROM '
+'[doctor-know:rtda.tweets] WHERE Words CONTAINS "'+inputData+'"GROUP BY text ORDER BY text LIMIT 150'}
+            tableData = bigquery_service.jobs()
+            dataList = tableData.query(projectId=PROJECTID,body=queryData).execute(http)
+
+            resp = {}
+            resp['text'] = status.text
+            resp['created_at'] = time.mktime(status.created_at.timetuple())
+            resp['geo'] = status.geo
+            resp['source'] = status.source
+            self.response.headers['Content-Type'] = 'application/json'
+            self.response.out.write(json.dumps(resp))
+        else:
+            self.response.write(json.dumps({'error':'No credentials'}))
+
+
+#######################################################################
 ## Profile Page
 class ProfilePage(webapp2.RequestHandler) :
 
@@ -185,12 +223,57 @@ class UserModel(ndb.Model) :
 	additional = ndb.StringProperty(indexed = false)
 	words = ndb.StringProperty(indexed=False,repeated=True)
 
+
+#######################################################################
+## Establish/Update User Profile
+# class CustomStreamListener(tweepy.StreamListener):
+#     def __init__(self, api):
+#         self.api = api
+#         super(tweepy.StreamListener, self).__init__()
+
+#         #setup rabbitMQ Connection
+#         self.connection = RabbitConnection(host='130.211.189.207', heartbeat=None, debug=True)
+
+#         self.channel = self.connection.channel()
+
+#         #set max queue size
+#         args = {"x-max-length": 2000}
+
+#         self.channel.queue.declare(queue='twitter_topic_feed', arguments=args)
+
+#     def on_status(self, status):
+#         print status.text, "\n"
+
+#         data = {}
+#         data['text'] = status.text
+#         data['created_at'] = time.mktime(status.created_at.timetuple())
+#         data['geo'] = status.geo
+#         data['source'] = status.source
+
+#         #queue the tweet
+#         self.channel.basic.publish(exchange='',
+#                                     routing_key='twitter_topic_feed',
+#                                     body=json.dumps(data))
+
+#     def on_error(self, status_code):
+#         print >> sys.stderr, 'Encountered error with status code:', status_code
+#         return True  # Don't kill the stream
+
+#     def on_timeout(self):
+#         print >> sys.stderr, 'Timeout...'
+#         return True  # Don't kill the stream
+
+# sapi = tweepy.streaming.Stream(auth, CustomStreamListener(api))
+# # my keyword today is chelsea as the team just had a big win
+# sapi.filter(track=[self.request.get("inputData")])
+
 app = webapp2.WSGIApplication( [
     ('/', MainPage),
     ('/profile', ProfilePage),
     ('/createProfile', CreateProfile),
     ('/userRegister', ProcessUser),
     ('/getData', DataHandler),
+    ('/getWords', WordsHandler),
     ('/data', DisplayData),
     ('/engine', DisplayEngine),
     (decorator.callback_path, decorator.callback_handler()),

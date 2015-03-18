@@ -32,7 +32,7 @@ class StdOutListener(StreamListener):
   twstring = ''
   tweets = []
   r = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0)
-  total_tweets = 10000000
+  total_tweets = 100000
 
   def write_to_redis(self, tw):
     try:
@@ -74,12 +74,6 @@ if __name__ == '__main__':
     stream.sample()
   else:
     stream.filter(
-        track=['Pittsburgh', 'Pitt', 'Google', 'appengine', 'google',
-               'autism', 'learning', 'creativity',
-               'machine', 'artificial', 'intelligence', 'compute', 'scalability',
-               'artist', 'news', 'Pirates', 'Penguins',
-               'Steelers', 'movies', 'music', 'snoop-dog', 'heinz',
-               'mission', 'continues', 'pittvets', 'timjames',
-               'timothyjames', 'webapps', 'techcrunch', 'timoreilly']
+        track=['Pittsburgh']
         )
 
