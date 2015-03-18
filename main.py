@@ -11,6 +11,7 @@ import httplib2
 import json
 import tweepy
 import haigha
+from collections import Counter
 from haigha.connections.rabbit_connection import RabbitConnection
 from apiclient import discovery
 from oauth2client import appengine
@@ -123,8 +124,8 @@ class ProcessUser(webapp2.RequestHandler) :
 				NewUser.word+=[word]
 			NewUser.put()
 			self.redirect('/')
-		else
-			self.redirect(users.create_login_url('/'))
+        # else:
+        #     self.redirect(users.create_login_url('/'))
 
 #######################################################################
 ## Model Data
@@ -171,11 +172,28 @@ class WordsHandler(webapp2.RequestHandler) :
             tableData = bigquery_service.jobs()
             dataList = tableData.query(projectId=PROJECTID,body=queryData).execute(http)
 
-            resp = {}
-            resp['text'] = status.text
-            resp['created_at'] = time.mktime(status.created_at.timetuple())
-            resp['geo'] = status.geo
-            resp['source'] = status.source
+            tweets = []
+            if 'rows' in dataList:
+                #parse dataList
+                count = 0
+                for row in dataList['rows']:
+                    tweets.append(json.loads(body))
+                    count += 1
+                    if count == 30:
+                        break
+
+            ignore_words = [ "fuck", "shit", "cock", "penis", "porn"]
+            words = []
+            for tweet in tweets:
+                tt = tweet.get('text', "").lower()
+                for word in tt.split():
+                    if "http" in word:
+                        continue
+                    if word not in ignore_words:
+                        words.append(word)
+
+            resp = Counter(words)
+
             self.response.headers['Content-Type'] = 'application/json'
             self.response.out.write(json.dumps(resp))
         else:
@@ -216,12 +234,13 @@ class DisplayData(webapp2.RequestHandler) :
 #######################################################################
 ## Establish/Update User Profile
 class UserModel(ndb.Model) :
-	uid = ndb.StringProperty(indexed=True)
-    fname = ndb.StringProperty(indexed = false)
-    lname = ndb.StringProperty(indexed = false)
-	location = ndb.StringProperty(indexed = false)
-	additional = ndb.StringProperty(indexed = false)
-	words = ndb.StringProperty(indexed=False,repeated=True)
+
+    uid = ndb.StringProperty(indexed=True)
+    fname = ndb.StringProperty(indexed = False)
+    lname = ndb.StringProperty(indexed = False)
+    location = ndb.StringProperty(indexed = False)
+    additional = ndb.StringProperty(indexed = False)
+    words = ndb.StringProperty(indexed=False,repeated=True)
 
 
 #######################################################################
