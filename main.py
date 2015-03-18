@@ -9,10 +9,6 @@ import webapp2
 import time
 import httplib2
 import json
-import tweepy
-import haigha
-from collections import Counter
-from haigha.connections.rabbit_connection import RabbitConnection
 from apiclient import discovery
 from oauth2client import appengine
 from oauth2client import client
@@ -45,16 +41,6 @@ href="https://code.google.com/apis/console">APIs Console</a>.
 http = httplib2.Http(memcache)
 service = discovery.build("plus", "v1", http=http)
 bigquery_service = discovery.build("bigquery","v2", http=http)
-
-consumer_key = "9xNrmD6hE0xnRSYdZt5t0XT0B"
-consumer_secret = "kperqjklvPhBCVvHI96aZIfJu5w1DHI2BZoNMdBEvBPfmuZIYG"
-access_token = "46501499-cijYvv9ixtQKHLSiLt9QaRtcmWeEKvvGZK5s6ukw7"
-access_token_secret = "D127XCAN02BPb0ZtcreCG6dpBJyiiLCeD6ckS2MgdHqwG"
-
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth)
-
 
 decorator = appengine.oauth2decorator_from_clientsecrets(
     CLIENT_SECRETS,
@@ -107,25 +93,14 @@ class CreateProfile(webapp2.RequestHandler):
 
 #######################################################################
 ## process user profile
-## check for user signed in, if so, save the entered information, otherwise, redirect them to the login page
 class ProcessUser(webapp2.RequestHandler) :
 
     def post(self) :
-		user = users.get_current_user()
-		if user:
-			NewUser = UserModel()
-			NewUser.uid = user.user_id()
-			NewUser.fname = self.request.get('fname')
-			NewUser.lname = self.request.get('lname')
-			NewUser.location = self.request.get('location')
-			NewUser.additional = self.request.get('additional')
-			NewUser.words = []
-			for word in words:
-				NewUser.word+=[word]
-			NewUser.put()
-			self.redirect('/')
-        # else:
-        #     self.redirect(users.create_login_url('/'))
+        NewUser = UserModel()
+        NewUser.fname = self.request.get('fname')
+        NewUser.lname = self.request.get('lname')
+        NewUser.put()
+        self.redirect('/')
 
 #######################################################################
 ## Model Data
@@ -152,48 +127,6 @@ class DataHandler(webapp2.RequestHandler) :
                         resp.append({'count': count['v'],'year':year['v'],'corpus':corpus['v']})
             else:
                 resp.append({'count':'0','year':'0','corpus':'0'})
-            self.response.headers['Content-Type'] = 'application/json'
-            self.response.out.write(json.dumps(resp))
-        else:
-            self.response.write(json.dumps({'error':'No credentials'}))
-
-
-#######################################################################
-## Model Words
-class WordsHandler(webapp2.RequestHandler) :
-
-    @bq_decorator.oauth_aware
-    def get(self) :
-        if bq_decorator.has_credentials():
-            http = bq_decorator.http()
-            inputData = self.request.get("inputData")
-            queryData = {'query':'SELECT text FROM '
-'[doctor-know:rtda.tweets] WHERE Words CONTAINS "'+inputData+'"GROUP BY text ORDER BY text LIMIT 150'}
-            tableData = bigquery_service.jobs()
-            dataList = tableData.query(projectId=PROJECTID,body=queryData).execute(http)
-
-            tweets = []
-            if 'rows' in dataList:
-                #parse dataList
-                count = 0
-                for row in dataList['rows']:
-                    tweets.append(json.loads(body))
-                    count += 1
-                    if count == 30:
-                        break
-
-            ignore_words = [ "fuck", "shit", "cock", "penis", "porn"]
-            words = []
-            for tweet in tweets:
-                tt = tweet.get('text', "").lower()
-                for word in tt.split():
-                    if "http" in word:
-                        continue
-                    if word not in ignore_words:
-                        words.append(word)
-
-            resp = Counter(words)
-
             self.response.headers['Content-Type'] = 'application/json'
             self.response.out.write(json.dumps(resp))
         else:
@@ -234,57 +167,8 @@ class DisplayData(webapp2.RequestHandler) :
 #######################################################################
 ## Establish/Update User Profile
 class UserModel(ndb.Model) :
-
-    uid = ndb.StringProperty(indexed=True)
-    fname = ndb.StringProperty(indexed = False)
-    lname = ndb.StringProperty(indexed = False)
-    location = ndb.StringProperty(indexed = False)
-    additional = ndb.StringProperty(indexed = False)
-    words = ndb.StringProperty(indexed=False,repeated=True)
-
-
-#######################################################################
-## Establish/Update User Profile
-# class CustomStreamListener(tweepy.StreamListener):
-#     def __init__(self, api):
-#         self.api = api
-#         super(tweepy.StreamListener, self).__init__()
-
-#         #setup rabbitMQ Connection
-#         self.connection = RabbitConnection(host='130.211.189.207', heartbeat=None, debug=True)
-
-#         self.channel = self.connection.channel()
-
-#         #set max queue size
-#         args = {"x-max-length": 2000}
-
-#         self.channel.queue.declare(queue='twitter_topic_feed', arguments=args)
-
-#     def on_status(self, status):
-#         print status.text, "\n"
-
-#         data = {}
-#         data['text'] = status.text
-#         data['created_at'] = time.mktime(status.created_at.timetuple())
-#         data['geo'] = status.geo
-#         data['source'] = status.source
-
-#         #queue the tweet
-#         self.channel.basic.publish(exchange='',
-#                                     routing_key='twitter_topic_feed',
-#                                     body=json.dumps(data))
-
-#     def on_error(self, status_code):
-#         print >> sys.stderr, 'Encountered error with status code:', status_code
-#         return True  # Don't kill the stream
-
-#     def on_timeout(self):
-#         print >> sys.stderr, 'Timeout...'
-#         return True  # Don't kill the stream
-
-# sapi = tweepy.streaming.Stream(auth, CustomStreamListener(api))
-# # my keyword today is chelsea as the team just had a big win
-# sapi.filter(track=[self.request.get("inputData")])
+    fname = ndb.StringProperty()
+    lname = ndb.StringProperty()
 
 app = webapp2.WSGIApplication( [
     ('/', MainPage),
@@ -292,7 +176,6 @@ app = webapp2.WSGIApplication( [
     ('/createProfile', CreateProfile),
     ('/userRegister', ProcessUser),
     ('/getData', DataHandler),
-    ('/getWords', WordsHandler),
     ('/data', DisplayData),
     ('/engine', DisplayEngine),
     (decorator.callback_path, decorator.callback_handler()),
