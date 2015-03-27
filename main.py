@@ -1,4 +1,3 @@
-
 __author__ = 'jml168@pitt.edu (J. Matthew Landis)'
 
 
@@ -54,7 +53,10 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 9a7283095da74ac6dc1d7c340814f7a256982c16
 decorator = appengine.oauth2decorator_from_clientsecrets(
     CLIENT_SECRETS,
     scope='https://www.googleapis.com/auth/plus.me',
@@ -76,32 +78,49 @@ def render_template(handler, templatename, templatevalues):
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
-        nickname = "null"
-        email = "null"
-        user = users.get_current_user()
-        login = users.create_login_url('/')
-        logout = users.create_logout_url('/')
-        os.system("python stream.py")
-        if user != None:
-            nickname = user.nickname()
-            email = user.email()
-
-        template_values = {
-        'login': login,
-        'logout': logout,
-        'user': user,
-        'nickname': nickname,
-        'email': email
-        }
-        render_template(self, 'index.html', template_values)
+		nickname = "null"
+		email = "null"
+		user = users.get_current_user()
+		if user:
+			res = UserModel.query(UserModel.id == user.user_id()).fetch()
+			if res:
+				ui = res[0]
+				nickname = ui.fname+ " " +ui.lname
+				email = user.email()	
+				login = users.create_login_url('/')
+			else:
+				nickname = user.nickname()
+				email = user.email()
+				login = '/createProfile'
+		else:
+			ui = None
+			login = users.create_login_url('/')
+		logout = users.create_logout_url('/')
+		os.system("python stream.py")
+		template_values = {
+		'login': login,
+		'logout': logout,
+		'user': user,
+		'nickname': nickname,
+		'email': email
+		}
+		render_template(self, 'index.html', template_values)
 
 #######################################################################
 ## Handle user info and profile
 class CreateProfile(webapp2.RequestHandler):
     def get(self):
-        template_data = {}
-        template_path = 'templates/createProfile.html'
-        self.response.out.write(template.render(template_path,template_data))
+		user = users.get_current_user()
+		if user:
+			res = UserModel.query(UserModel.uid == user.user_id()).fetch()
+			if res:
+				self.redirect('/profile')
+			else:
+				template_data = {'logout':users.create_logout_url('/'), 'nickname': users.nickname()}
+				template_path = 'templates/createProfile.html'
+				self.response.out.write(template.render(template_path,template_data))
+		else:
+			self.redirect(user.create_login_url('/'))
 
 
 #######################################################################
@@ -112,18 +131,26 @@ class ProcessUser(webapp2.RequestHandler) :
     def post(self) :
 		user = users.get_current_user()
 		if user:
-			NewUser = UserModel()
-			NewUser.uid = user.user_id()
-			NewUser.fname = self.request.get('fname')
-			NewUser.lname = self.request.get('lname')
-			NewUser.location = self.request.get('location')
-			NewUser.additional = self.request.get('additional')
-			NewUser.words = []
-			for word in words:
-				NewUser.word+=[word]
-			NewUser.put()
-			self.redirect('/')
-		else
+			fname = self.request.get('fname')
+			lname = self.request.get('lname')
+			fname.replace(" ", "")
+			lname.replace(" ", "")
+			words = self.request.get_all('word')
+			if (not(not fname)) & (not(not lname)):
+				NewUser = UserModel()
+				NewUser.uid = user.user_id()
+				NewUser.fname = fname
+				NewUser.lname = lname
+				NewUser.words = []
+				for word in words:
+					word.replace(" ", "")
+					if word:
+						NewUser.words+=[word]
+				NewUser.put()
+				self.redirect('/profile')
+			else:
+				self.redirect('/createProfile')
+		else:
 			self.redirect(users.create_login_url('/'))
 
 #######################################################################
@@ -151,6 +178,31 @@ class DataHandler(webapp2.RequestHandler) :
                         resp.append({'count': count['v'],'year':year['v'],'corpus':corpus['v']})
             else:
                 resp.append({'count':'0','year':'0','corpus':'0'})
+            self.response.headers['Content-Type'] = 'application/json'
+            self.response.out.write(json.dumps(resp))
+        else:
+            self.response.write(json.dumps({'error':'No credentials'}))
+
+			
+#######################################################################
+## Model Words
+class WordsHandler(webapp2.RequestHandler) :
+
+    @bq_decorator.oauth_aware
+    def get(self) :
+        if bq_decorator.has_credentials():
+            http = bq_decorator.http()
+            inputData = self.request.get("inputData")
+            queryData = {'query':'SELECT text FROM '
+'[doctor-know:rtda.tweets] WHERE Words CONTAINS "'+inputData+'"GROUP BY text ORDER BY text LIMIT 150'}
+            tableData = bigquery_service.jobs()
+            dataList = tableData.query(projectId=PROJECTID,body=queryData).execute(http)
+
+            resp = {}
+            resp['text'] = status.text
+            resp['created_at'] = time.mktime(status.created_at.timetuple())
+            resp['geo'] = status.geo
+            resp['source'] = status.source
             self.response.headers['Content-Type'] = 'application/json'
             self.response.out.write(json.dumps(resp))
         else:
@@ -187,20 +239,38 @@ class WordsHandler(webapp2.RequestHandler) :
 class ProfilePage(webapp2.RequestHandler) :
 
     def get(self):
-        template_data = {}
-        template_path = 'templates/profile.html'
-        self.response.out.write(template.render(template_path,template_data))
-
-
+		user = users.get_current_user()
+		if user:
+			res = UserModel.query(UserModel.id == user.user_id()).fetch()
+			if res:
+				ui = res[0]
+				template_data = {'firstname': ui.fname, 'lastname': ui.lname, 'words': ui.words, 'nickname': ui.fname+ " " +ui.lname, 'logout': users.create_logout_url('/')}
+				template_path = 'templates/profile.html'
+				self.response.out.write(template.render(template_path,template_data))
+			else:
+				self.redirect('/createProfile')
+		else:
+			self.redirect(users.create_login_url('/'))
 
 #######################################################################
 ## Artificial Creativity Engine
 class DisplayEngine(webapp2.RequestHandler) :
 
     def get(self):
-        template_data = {}
-        template_path = 'templates/engine.html'
-        self.response.out.write(template.render(template_path,template_data))
+		user = users.get_current_user()
+		if user:
+			res = UserModel.query(UserModel.id == user.user_id()).fetch()
+			if res:
+				ui = res[0]
+				template_data = {'nickname': ui.fname+ " " +ui.lname, 'logout': users.create_logout_url('/')}
+				template_path = 'templates/engine.html'
+				self.response.out.write(template.render(template_path,template_data))
+			else:
+				template_data = {'nickname': user.nickname(), 'logout': users.create_logout_url('/')}
+				template_path = 'templates/engine.html'
+				self.response.out.write(template.render(template_path,template_data))
+		else:
+			self.redirect(users.create_login_url('/'))
 
 
 #######################################################################
@@ -208,20 +278,72 @@ class DisplayEngine(webapp2.RequestHandler) :
 class DisplayData(webapp2.RequestHandler) :
 
     def get(self):
-        template_data = {}
-        template_path = 'templates/data.html'
-        self.response.out.write(template.render(template_path,template_data))
+		user = users.get_current_user()
+		if user:
+			res = UserModel.query(UserModel.id == user.user_id()).fetch()
+			if res:
+				ui = res[0]
+				template_data = {'nickname': ui.fname+ " " +ui.lname, 'logout': users.create_logout_url('/')}
+				template_path = 'templates/data.html'
+				self.response.out.write(template.render(template_path,template_data))
+			else:
+				template_data = {'nickname': user.nickname(), 'logout': users.create_logout_url('/')}
+				template_path = 'templates/data.html'
+				self.response.out.write(template.render(template_path,template_data))
+		else:
+			self.redirect(users.create_login_url('/'))
 
 
 #######################################################################
 ## Establish/Update User Profile
 class UserModel(ndb.Model) :
-	uid = ndb.StringProperty(indexed=True)
-    fname = ndb.StringProperty(indexed = false)
-    lname = ndb.StringProperty(indexed = false)
-	location = ndb.StringProperty(indexed = false)
-	additional = ndb.StringProperty(indexed = false)
+	id = ndb.StringProperty(indexed=True)
+	fname = ndb.StringProperty(indexed = False)
+	lname = ndb.StringProperty(indexed = False)
 	words = ndb.StringProperty(indexed=False,repeated=True)
+	
+#######################################################################
+## Establish/Update User Profile
+# class CustomStreamListener(tweepy.StreamListener):
+#     def __init__(self, api):
+#         self.api = api
+#         super(tweepy.StreamListener, self).__init__()
+
+#         #setup rabbitMQ Connection
+#         self.connection = RabbitConnection(host='130.211.189.207', heartbeat=None, debug=True)
+
+#         self.channel = self.connection.channel()
+
+#         #set max queue size
+#         args = {"x-max-length": 2000}
+
+#         self.channel.queue.declare(queue='twitter_topic_feed', arguments=args)
+
+#     def on_status(self, status):
+#         print status.text, "\n"
+
+#         data = {}
+#         data['text'] = status.text
+#         data['created_at'] = time.mktime(status.created_at.timetuple())
+#         data['geo'] = status.geo
+#         data['source'] = status.source
+
+#         #queue the tweet
+#         self.channel.basic.publish(exchange='',
+#                                     routing_key='twitter_topic_feed',
+#                                     body=json.dumps(data))
+
+#     def on_error(self, status_code):
+#         print >> sys.stderr, 'Encountered error with status code:', status_code
+#         return True  # Don't kill the stream
+
+#     def on_timeout(self):
+#         print >> sys.stderr, 'Timeout...'
+#         return True  # Don't kill the stream
+
+# sapi = tweepy.streaming.Stream(auth, CustomStreamListener(api))
+# # my keyword today is chelsea as the team just had a big win
+# sapi.filter(track=[self.request.get("inputData")])
 
 
 #######################################################################

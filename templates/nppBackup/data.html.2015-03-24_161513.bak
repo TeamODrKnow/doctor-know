@@ -156,11 +156,7 @@
     <input id="txtKeyword" type="text" class="span3" placeholder="Type something…">
 </div>
 <footer class="row">
-<<<<<<< HEAD
-        <p><small>Team O for OutrageouslyAwesomeIdeaGeneratingMachine</small></p>
-=======
-        <p><small>Copyright Team O for OrthographicallyExcellentAuthorsOfCode</small></p>
->>>>>>> 9a7283095da74ac6dc1d7c340814f7a256982c16
+        <p><small>Copyright J. Matthew Landis 2015</small></p>
 
         <!-- javascript -->
         <script>

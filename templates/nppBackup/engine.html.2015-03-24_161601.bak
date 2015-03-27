@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Dr. Know - Data Charts</title>
+    <title>Dr. Know - Artificial Creativity Engine</title>
 
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/custom.css" rel="stylesheet">
@@ -28,7 +28,7 @@
             padding: 10px 36px 20px 36px;
         }
         .axis text {
-            font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: 'Lato';
             font-size: 13px;
         }
         .tick {
@@ -38,7 +38,7 @@
             fill: FireBrick;
         }
         #D3line {
-            background: #1f3142;
+            background: rgba(255, 255, 255, 0.5);
             box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
         }
     </style>
@@ -52,7 +52,7 @@
         var keyword = $('#txtKeyword').val();
         $.ajax({
             type: "GET",
-            url: "/getData",
+            url: "/data",
             data: {
                 inputData: keyword
             },
@@ -109,7 +109,7 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div><h2>Data Analysis</h2></div>
+<div><h2>Artificial Creativity Engine</h2></div>
   <!-- <div class="col-xs-3 btn-group btn-block-stack" data-toggle="buttons">
     <a href="#" class="btn btn-primary active"><img src="../static/images/brainstormApp.png" class="img-responsive center-block" width="50%">
       <input type="radio" name="options" id="brainstorm" autocomplete="off" checked> Brainstorm
@@ -140,6 +140,7 @@
 <div class="container">
   <!-- Jumbotron -->
   <div id="D3line" class="jumbotron">
+      <h1>Data Visualization App</h1>
       <svg id="visualisation" width="1000" height="500"></svg>
   </div>
 </div>
@@ -156,11 +157,7 @@
     <input id="txtKeyword" type="text" class="span3" placeholder="Type something…">
 </div>
 <footer class="row">
-<<<<<<< HEAD
-        <p><small>Team O for OutrageouslyAwesomeIdeaGeneratingMachine</small></p>
-=======
-        <p><small>Copyright Team O for OrthographicallyExcellentAuthorsOfCode</small></p>
->>>>>>> 9a7283095da74ac6dc1d7c340814f7a256982c16
+        <p><small>Copyright J. Matthew Landis 2015</small></p>
 
         <!-- javascript -->
         <script>

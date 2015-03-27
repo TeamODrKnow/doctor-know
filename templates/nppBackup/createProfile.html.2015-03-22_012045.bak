@@ -1,15 +1,23 @@
 {% extends "base.html" %}
 
 {% block main %}
-	<form style="color: white;" method = "post" action = "/userRegister">
-		First Name: <input style="color: black !important;" type = "text" name = "fname" required><br>
-		Last Name: <input style="color: black !important;" type = "text" name = "lname" required><br><br>
+	<form method = "post" action = "/userRegister">
+		First Name: <input type = "text" name = "fname"><br>
+		Last Name: <input type = "text" name = "lname"><br>
 		Add Words To Your Account:
-		<button style="color: black !important;" type="button" onclick="addWord()">Add Word</button><br>
 		<div id="wordcontainer">
-		</div><br>
-		<button style="color: black !important;" type = "submit">Register</button><br>
+			<button type="button" onclick="addWord()">Add Word</button>
+		</div>
+		<button type = "submit">Register</button><br>
 	</form>
+	<script type = "text/javascript">
+		var wordcounter;
+		function addWord()
+		{
+			wordcounter++;
+			document.getElementById('wordcontainer').innerHTML+='<div>Word '+wordcounter+': <input type="text" name="word"><br></div>';
+		}
+	</script>
 {% endblock %}
 
 {% block navbar %}
@@ -35,7 +43,7 @@
         <li><a href="#linked"><span class="glyphicon glyphicon-link hidden-sm"></span> Linked Accounts</a></li>
         <li><a href="#saved"><span class="glyphicon glyphicon-screenshot hidden-sm"></span> Saved Searches</a></li>
       </ul>
-      <p class="navbar-text"><span class="hidden-sm">Signed in as </span><a href="#profile" class="navbar-link"> {{nickname}} </a></p>
+      <p class="navbar-text"><span class="hidden-sm">Signed in as </span><a href="#profile" class="navbar-link"> {{nickname}}     </a></p>
       <p class="navbar-text navbar-right"><a href="{{logout}}" class="navbar-link"> Log Out</a></p>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
