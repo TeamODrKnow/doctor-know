@@ -1,4 +1,3 @@
-
 __author__ = 'jml168@pitt.edu (J. Matthew Landis)'
 
 
@@ -11,6 +10,7 @@ import httplib2
 import json
 import tweepy
 import haigha
+from collections import Counter
 from haigha.connections.rabbit_connection import RabbitConnection
 from apiclient import discovery
 from oauth2client import appengine
@@ -110,21 +110,21 @@ class CreateProfile(webapp2.RequestHandler):
 class ProcessUser(webapp2.RequestHandler) :
 
     def post(self) :
-		user = users.get_current_user()
-		if user:
-			NewUser = UserModel()
-			NewUser.uid = user.user_id()
-			NewUser.fname = self.request.get('fname')
-			NewUser.lname = self.request.get('lname')
-			NewUser.location = self.request.get('location')
-			NewUser.additional = self.request.get('additional')
-			NewUser.words = []
-			for word in words:
-				NewUser.word+=[word]
-			NewUser.put()
-			self.redirect('/')
-		else
-			self.redirect(users.create_login_url('/'))
+        user = users.get_current_user()
+        if user:
+            NewUser = UserModel()
+            NewUser.uid = user.user_id()
+            NewUser.fname = self.request.get('fname')
+            NewUser.lname = self.request.get('lname')
+            NewUser.location = self.request.get('location')
+            NewUser.additional = self.request.get('additional')
+            NewUser.words = []
+            for word in words:
+                NewUser.word+=[word]
+            NewUser.put()
+            self.redirect('/')
+        # else:
+        #     self.redirect(users.create_login_url('/'))
 
 #######################################################################
 ## Model Data
@@ -161,25 +161,49 @@ class DataHandler(webapp2.RequestHandler) :
 ## Model Words
 class WordsHandler(webapp2.RequestHandler) :
 
+    inputData = "yes"
     @bq_decorator.oauth_aware
     def get(self) :
         if bq_decorator.has_credentials():
             http = bq_decorator.http()
             inputData = self.request.get("inputData")
             queryData = {'query':'SELECT text FROM '
-'[doctor-know:rtda.tweets] WHERE Words CONTAINS "'+inputData+'"GROUP BY text ORDER BY text LIMIT 150'}
+'[doctor-know:rtda.tweets] WHERE text CONTAINS "'+inputData+'" GROUP BY text ORDER BY text LIMIT 300'}
             tableData = bigquery_service.jobs()
             dataList = tableData.query(projectId=PROJECTID,body=queryData).execute(http)
 
-            resp = {}
-            resp['text'] = status.text
-            resp['created_at'] = time.mktime(status.created_at.timetuple())
-            resp['geo'] = status.geo
-            resp['source'] = status.source
-            self.response.headers['Content-Type'] = 'application/json'
-            self.response.out.write(json.dumps(resp))
-        else:
-            self.response.write(json.dumps({'error':'No credentials'}))
+            tweets = []
+            if 'rows' in dataList:
+                #parse dataList
+                count = 0
+                for row in dataList['rows']:
+                    for key,dict_list in row.iteritems():
+                        tweet = dict_list[0]
+                        count += 1
+                        tweets.append({'text': tweet})
+                        if count == 300:
+                            break
+
+
+            ignore_words = [ "fuck", "shit", "cock", "penis", "porn"]
+            words = []
+            for tweet in tweets:
+                tt = tweet.get('text', "")
+                for word in tt.split():
+                    if "http" in word:
+                        continue
+                    if word not in ignore_words:
+                        words.append(word)
+
+            resp = Counter(words)
+
+            resp.headers.add('Access-Control-Allow-Origin', "*")
+            return resp
+
+        #     self.response.headers['Content-Type'] = 'application/json'
+        #     self.response.out.write(json.dumps(tweets))
+        # else:
+        #     self.response.write(json.dumps({'error':'No credentials'}))
 
 
 #######################################################################
@@ -216,12 +240,13 @@ class DisplayData(webapp2.RequestHandler) :
 #######################################################################
 ## Establish/Update User Profile
 class UserModel(ndb.Model) :
-	uid = ndb.StringProperty(indexed=True)
-    fname = ndb.StringProperty(indexed = false)
-    lname = ndb.StringProperty(indexed = false)
-	location = ndb.StringProperty(indexed = false)
-	additional = ndb.StringProperty(indexed = false)
-	words = ndb.StringProperty(indexed=False,repeated=True)
+
+    uid = ndb.StringProperty(indexed=True)
+    fname = ndb.StringProperty(indexed = False)
+    lname = ndb.StringProperty(indexed = False)
+    location = ndb.StringProperty(indexed = False)
+    additional = ndb.StringProperty(indexed = False)
+    words = ndb.StringProperty(indexed=False,repeated=True)
 
 
 #######################################################################

@@ -47,7 +47,7 @@
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="../static/scripts/jquery.tipsy.js" type="text/javascript"></script>
-    <script>
+    <!-- <script>
     function DisplayCloud() {
         var keyword = $('#txtKeyword').val();
         $.ajax({
@@ -67,12 +67,12 @@
         });
     }
     </script>
-
+ -->
     <script>
       $(document).ready(function () {
                 $("#txtKeyword").keyup(function (event) {
                     if (event.keyCode == 13) {
-                        DisplayChart();
+                        get_words();
                     }
                 });
                 InitChart();
@@ -199,7 +199,7 @@
       }
 
     //ajax call
-    function get_words(data) {
+    function get_words() {
         //make ajax call
         d3.json("/getWords", function(json, error) {
           if (error) return console.warn(error);
