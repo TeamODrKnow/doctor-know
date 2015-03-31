@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block main %}
+	<script src="../static/scripts/words.js"></script>
 	<form style="color: white;" method = "post" action = "/userRegister">
 		First Name: <input style="color: black !important;" type = "text" name = "fname" required><br>
 		Last Name: <input style="color: black !important;" type = "text" name = "lname" required><br><br>
@@ -8,7 +9,7 @@
 		<button style="color: black !important;" type="button" onclick="addWord()">Add Word</button><br>
 		<div id="wordcontainer">
 		</div><br>
-		<button style="color: black !important;" type = "submit">Register</button><br>
+		<button type = "submit">Register</button><br>
 	</form>
 {% endblock %}
 
@@ -35,7 +36,7 @@
         <li><a href="#linked"><span class="glyphicon glyphicon-link hidden-sm"></span> Linked Accounts</a></li>
         <li><a href="#saved"><span class="glyphicon glyphicon-screenshot hidden-sm"></span> Saved Searches</a></li>
       </ul>
-      <p class="navbar-text"><span class="hidden-sm">Signed in as </span><a href="#profile" class="navbar-link"> {{nickname}} </a></p>
+      <p class="navbar-text"><span class="hidden-sm">Signed in as </span><a href="#profile" class="navbar-link"> {{nickname}}     </a></p>
       <p class="navbar-text navbar-right"><a href="{{logout}}" class="navbar-link"> Log Out</a></p>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

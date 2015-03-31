@@ -2,7 +2,13 @@
 
 {% block main %}
 	<div>
-    <p> Profile Stuff Here </p>
+    <p>{{ firstname }} {{ lastname }}</p>
+	<br>
+	<ol>
+		{% for word in words %}
+			<li>word</li>
+		{% endfor %}
+	</ol>
   </div>
 {% endblock %}
 

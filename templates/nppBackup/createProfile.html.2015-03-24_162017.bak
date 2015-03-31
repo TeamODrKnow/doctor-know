@@ -35,7 +35,7 @@
         <li><a href="#linked"><span class="glyphicon glyphicon-link hidden-sm"></span> Linked Accounts</a></li>
         <li><a href="#saved"><span class="glyphicon glyphicon-screenshot hidden-sm"></span> Saved Searches</a></li>
       </ul>
-      <p class="navbar-text"><span class="hidden-sm">Signed in as </span><a href="#profile" class="navbar-link"> {{nickname}} </a></p>
+      <p class="navbar-text"><span class="hidden-sm">Signed in as </span><a href="#profile" class="navbar-link"> {{nickname}}     </a></p>
       <p class="navbar-text navbar-right"><a href="{{logout}}" class="navbar-link"> Log Out</a></p>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
