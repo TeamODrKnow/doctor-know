@@ -149,7 +149,6 @@ class ProcessUser(webapp2.RequestHandler) :
 				self.redirect('/createProfile')
 		else:
 			self.redirect(users.create_login_url('/'))
->>>>>>> ad57abf9f5656b4ea639da1e28c8c3d2004049dd
 
 #######################################################################
 ## Model Data
