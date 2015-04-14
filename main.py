@@ -54,10 +54,6 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 9a7283095da74ac6dc1d7c340814f7a256982c16
 decorator = appengine.oauth2decorator_from_clientsecrets(
     CLIENT_SECRETS,
     scope='https://www.googleapis.com/auth/plus.me',
@@ -83,7 +79,7 @@ class MainPage(webapp2.RequestHandler):
 		email = "null"
 		user = users.get_current_user()
 		if user:
-			res = UserModel.query(UserModel.id == user.user_id()).fetch()
+			res = UserModel.query(UserModel.uid == user.user_id()).fetch()
 			if res:
 				ui = res[0]
 				nickname = ui.fname+ " " +ui.lname
@@ -130,23 +126,6 @@ class CreateProfile(webapp2.RequestHandler):
 class ProcessUser(webapp2.RequestHandler) :
 
     def post(self) :
-<<<<<<< HEAD
-        user = users.get_current_user()
-        if user:
-            NewUser = UserModel()
-            NewUser.uid = user.user_id()
-            NewUser.fname = self.request.get('fname')
-            NewUser.lname = self.request.get('lname')
-            NewUser.location = self.request.get('location')
-            NewUser.additional = self.request.get('additional')
-            NewUser.words = []
-            for word in words:
-                NewUser.word+=[word]
-            NewUser.put()
-            self.redirect('/')
-        # else:
-        #     self.redirect(users.create_login_url('/'))
-=======
 		user = users.get_current_user()
 		if user:
 			fname = self.request.get('fname')
@@ -284,7 +263,7 @@ class ProfilePage(webapp2.RequestHandler) :
     def get(self):
 		user = users.get_current_user()
 		if user:
-			res = UserModel.query(UserModel.id == user.user_id()).fetch()
+			res = UserModel.query(UserModel.uid == user.user_id()).fetch()
 			if res:
 				ui = res[0]
 				template_data = {'firstname': ui.fname, 'lastname': ui.lname, 'words': ui.words, 'nickname': ui.fname+ " " +ui.lname, 'logout': users.create_logout_url('/')}
@@ -302,7 +281,7 @@ class DisplayEngine(webapp2.RequestHandler) :
     def get(self):
 		user = users.get_current_user()
 		if user:
-			res = UserModel.query(UserModel.id == user.user_id()).fetch()
+			res = UserModel.query(UserModel.uid == user.user_id()).fetch()
 			if res:
 				ui = res[0]
 				template_data = {'nickname': ui.fname+ " " +ui.lname, 'logout': users.create_logout_url('/')}
@@ -323,7 +302,7 @@ class DisplayData(webapp2.RequestHandler) :
     def get(self):
 		user = users.get_current_user()
 		if user:
-			res = UserModel.query(UserModel.id == user.user_id()).fetch()
+			res = UserModel.query(UserModel.uid == user.user_id()).fetch()
 			if res:
 				ui = res[0]
 				template_data = {'nickname': ui.fname+ " " +ui.lname, 'logout': users.create_logout_url('/')}
@@ -340,16 +319,7 @@ class DisplayData(webapp2.RequestHandler) :
 #######################################################################
 ## Establish/Update User Profile
 class UserModel(ndb.Model) :
-<<<<<<< HEAD
-
-    uid = ndb.StringProperty(indexed=True)
-    fname = ndb.StringProperty(indexed = False)
-    lname = ndb.StringProperty(indexed = False)
-    location = ndb.StringProperty(indexed = False)
-    additional = ndb.StringProperty(indexed = False)
-    words = ndb.StringProperty(indexed=False,repeated=True)
-=======
-	id = ndb.StringProperty(indexed=True)
+	uid = ndb.StringProperty(indexed=True)
 	fname = ndb.StringProperty(indexed = False)
 	lname = ndb.StringProperty(indexed = False)
 	words = ndb.StringProperty(indexed=False,repeated=True)
@@ -396,7 +366,6 @@ class UserModel(ndb.Model) :
 # sapi = tweepy.streaming.Stream(auth, CustomStreamListener(api))
 # # my keyword today is chelsea as the team just had a big win
 # sapi.filter(track=[self.request.get("inputData")])
->>>>>>> ad57abf9f5656b4ea639da1e28c8c3d2004049dd
 
 
 #######################################################################
